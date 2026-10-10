@@ -1,0 +1,13 @@
+trainNumber,name,direction,originStation,destinationStation,arrivalTimeElla,departureTimeElla,operatingDays,platform,currentStatus,source
+"1005","Podi Menike (Express)","to_badulla","Colombo Fort (FOT)","Badulla (BDA)","15:14","15:17","Daily","Platform 1","On Time","Sri Lanka Railways Main Line Working Timetable"
+"1006","Podi Menike (Express)","to_colombo","Badulla (BDA)","Colombo Fort (FOT)","09:23","09:26","Daily","Platform 1","On Time","Sri Lanka Railways Main Line Working Timetable"
+"1015","Udarata Menike (Express)","to_badulla","Colombo Fort (FOT)","Badulla (BDA)","17:28","17:31","Daily","Platform 1","On Time","Sri Lanka Railways Main Line Working Timetable"
+"1016","Udarata Menike (Express)","to_colombo","Badulla (BDA)","Colombo Fort (FOT)","06:38","06:41","Daily","Platform 1","On Time","Sri Lanka Railways Main Line Working Timetable"
+"1041","Ella Odyssey (Tourist Special)","to_badulla","Colombo Fort (FOT)","Badulla (BDA)","15:28","15:35","Thursday;Saturday;Sunday","Platform 1","Scheduled","Sri Lanka Railways Special Services Division"
+"1042","Ella Odyssey (Tourist Special)","to_colombo","Badulla (BDA)","Colombo Fort (FOT)","09:50","10:00","Friday;Sunday","Platform 1","Scheduled","Sri Lanka Railways Special Services Division"
+"1023","Denuwara Menike (Intercity S12)","to_badulla","Colombo Fort (FOT)","Badulla (BDA)","14:48","14:51","Daily","Platform 1","On Time","Sri Lanka Railways Main Line Working Timetable"
+"1024","Denuwara Menike (Intercity S12)","to_colombo","Badulla (BDA)","Colombo Fort (FOT)","08:08","08:11","Daily","Platform 1","On Time","Sri Lanka Railways Main Line Working Timetable"
+"1007","Night Mail (Express Sleeper)","to_badulla","Colombo Fort (FOT)","Badulla (BDA)","06:05","06:08","Daily","Platform 1","On Time","Sri Lanka Railways Night Mail Services"
+"1008","Night Mail (Express Sleeper)","to_colombo","Badulla (BDA)","Colombo Fort (FOT)","18:35","18:38","Daily","Platform 1","On Time","Sri Lanka Railways Night Mail Services"
+"1126","Badulla - Kandy Commuter","to_kandy","Badulla (BDA)","Kandy (KDT)","11:10","11:14","Daily","Platform 1","On Time","Sri Lanka Railways Regional Service"
+"1596","Kandy - Badulla Local","to_badulla","Kandy (KDT)","Badulla (BDA)","16:55","16:58","Daily","Platform 1","On Time","Sri Lanka Railways Regional Service"

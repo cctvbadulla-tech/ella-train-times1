@@ -1,0 +1,6 @@
+{
+  "name": "Ella Train Timetable & Train Times",
+  "description": "Comprehensive timetable, arrival and departure times, ticket fares, delays, and tourist travel guide for Ella Railway Station, Sri Lanka.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

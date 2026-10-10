@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Console | Ella Train Timetable &amp; Train Times</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="alternate icon" href="./favicon.ico">
+  <link rel="stylesheet" href="./admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Standalone Admin Container -->
+  <div id="admin-app">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="brand">
+        <span class="icon">🚂</span>
+        <div>
+          <h1>Ella Railway Station — Admin Console</h1>
+          <p>ellatraintimes.com · Main Line Timetable Operations</p>
+        </div>
+      </div>
+      <div id="header-actions" class="header-actions hidden">
+        <span id="logged-user-label" class="user-label">User: Admin</span>
+        <button id="btn-logout" class="btn btn-outline-danger">Log Out</button>
+        <a href="./" class="btn btn-secondary">View Website</a>
+      </div>
+    </header>
+
+    <!-- Login Screen -->
+    <main id="login-container" class="login-wrapper">
+      <div class="login-card">
+        <div class="card-header">
+          <div class="lock-icon">🔒</div>
+          <h2>Station Administrator Login</h2>
+          <p>Secure management access for Station Master</p>
+        </div>
+
+        <div id="login-alert" class="alert alert-danger hidden"></div>
+
+        <div class="setup-notice">
+          <strong>Initial Setup Credentials:</strong>
+          <div>Username: <code>Admin</code></div>
+          <div>Initial Password: <code>Admin1234</code></div>
+          <small>* You will be required to change this password on initial sign-in.</small>
+        </div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" value="Admin" required placeholder="Admin">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-field">
+              <input type="password" id="password" required placeholder="Enter password">
+              <button type="button" id="btn-toggle-password" class="btn-toggle" title="Show/Hide Password">👁</button>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-login" class="btn btn-primary btn-block">Sign In to Station Console</button>
+        </form>
+
+        <div class="card-footer">
+          <a href="/">← Return to Public Timetable</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Change Password Modal -->
+    <div id="password-modal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <h3>Change Initial Setup Password</h3>
+        <p>For station security, you must select a new strong password (min 8 characters).</p>
+        <div id="password-modal-alert" class="alert alert-danger hidden"></div>
+        <form id="change-password-form">
+          <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" required minlength="8" placeholder="At least 8 characters">
+          </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm New Password</label>
+            <input type="password" id="confirm-password" required minlength="8" placeholder="Repeat new password">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Update &amp; Secure Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-container" class="dashboard-wrapper hidden">
+      <!-- Tabs Navigation -->
+      <nav class="dashboard-tabs">
+        <button class="tab-btn active" data-tab="tab-overview">Overview</button>
+        <button class="tab-btn" data-tab="tab-trains">Trains</button>
+        <button class="tab-btn" data-tab="tab-csv">CSV Import/Export</button>
+        <button class="tab-btn" data-tab="tab-alerts">Service Alerts</button>
+        <button class="tab-btn" data-tab="tab-fares">Ticket Fares</button>
+        <button class="tab-btn" data-tab="tab-feedback">Feedback Submissions</button>
+        <button class="tab-btn" data-tab="tab-audit">Audit Trail</button>
+        <button class="tab-btn" data-tab="tab-settings">Website Settings</button>
+      </nav>
+
+      <!-- Main Dashboard Content -->
+      <div class="tab-contents">
+        <!-- Tab 1: Overview -->
+        <section id="tab-overview" class="tab-pane active">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-label">Total Trains</span>
+              <span id="stat-total-trains" class="stat-number">12</span>
+              <span class="stat-meta">Main Line Regular Services</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Active Alerts</span>
+              <span id="stat-active-alerts" class="stat-number">2</span>
+              <span class="stat-meta">Delays &amp; Advisories</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Fare Records</span>
+              <span id="stat-total-fares" class="stat-number">7</span>
+              <span class="stat-meta">Verified Station Pairs</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Pending Inquiries</span>
+              <span id="stat-unread-feedback" class="stat-number">0</span>
+              <span class="stat-meta">Passenger Feedback</span>
+            </div>
+          </div>
+
+          <div class="content-box">
+            <h3>Quick Actions</h3>
+            <div class="action-buttons">
+              <button id="btn-quick-add-train" class="btn btn-primary">+ Add New Train Service</button>
+              <button id="btn-quick-import-csv" class="btn btn-secondary">📁 Upload Timetable CSV</button>
+              <button id="btn-quick-add-alert" class="btn btn-secondary">⚠️ Issue Delay Notice</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab 2: Trains -->
+        <section id="tab-trains" class="tab-pane">
+          <div class="pane-header">
+            <h3>Train Timetable Records</h3>
+            <button id="btn-open-train-form" class="btn btn-primary">+ Add Train</button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Train #</th>
+                  <th>Name</th>
+                  <th>Route</th>
+                  <th>Arr. Ella</th>
+                  <th>Dep. Ella</th>
+                  <th>Operating Days</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="trains-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab 3: CSV Import / Export -->
+        <section id="tab-csv" class="tab-pane">
+          <div class="content-box">
+            <h3>CSV Timetable Bulk Import</h3>
+            <p>Upload a validated timetable CSV file or paste the CSV rows below.</p>
+            <textarea id="csv-input-area" rows="8" placeholder="Paste CSV rows here..."></textarea>
+            <div class="action-buttons">
+              <button id="btn-process-csv" class="btn btn-primary">Validate &amp; Import Records</button>
+              <button id="btn-export-csv" class="btn btn-secondary">Export Current Schedule (CSV)</button>
+            </div>
+            <div id="csv-result" class="alert hidden"></div>
+          </div>
+        </section>
+
+        <!-- Tab 4: Service Alerts -->
+        <section id="tab-alerts" class="tab-pane">
+          <div class="pane-header">
+            <h3>Post Service Announcement</h3>
+          </div>
+          <form id="new-alert-form" class="form-box">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Type</label>
+                <select id="alert-type">
+                  <option value="advisory">Passenger Advisory</option>
+                  <option value="delay">Train Delay</option>
+                  <option value="cancellation">Train Cancellation</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="alert-title" required placeholder="e.g. Ella Odyssey Delay Notice">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea id="alert-message" rows="2" required placeholder="Detailed notice..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Publish Announcement</button>
+          </form>
+          <div id="alerts-list" class="alerts-list"></div>
+        </section>
+
+        <!-- Tab 5: Fares -->
+        <section id="tab-fares" class="tab-pane">
+          <div class="pane-header">
+            <h3>Official Distance-Based Fares</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>From</th>
+                  <th>To Destination</th>
+                  <th>Distance (km)</th>
+                  <th>3rd Class</th>
+                  <th>2nd Class</th>
+                  <th>1st Class</th>
+                </tr>
+              </thead>
+              <tbody id="fares-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Tab 6: Feedback -->
+        <section id="tab-feedback" class="tab-pane">
+          <div class="pane-header">
+            <h3>Passenger Submissions &amp; Timetable Corrections</h3>
+          </div>
+          <div id="feedback-list" class="feedback-list"></div>
+        </section>
+
+        <!-- Tab 7: Audit -->
+        <section id="tab-audit" class="tab-pane">
+          <div class="pane-header">
+            <h3>Security &amp; Administrative Audit Logs</h3>
+          </div>
+          <div id="audit-list" class="audit-list"></div>
+        </section>
+
+        <!-- Tab 8: Settings -->
+        <section id="tab-settings" class="tab-pane">
+          <div class="content-box">
+            <h3>Website &amp; Station Configuration</h3>
+            <form id="settings-form">
+              <div class="form-group">
+                <label>Station Master Notification Email</label>
+                <input type="email" id="setting-email" value="ellastation.inquiries@gmail.com">
+              </div>
+              <div class="form-group">
+                <label>Official Sri Lanka Railways Schedule Portal Link</label>
+                <input type="url" id="setting-slr-url" value="https://eservices.railway.gov.lk/schedule/homeAction.action?lag=en">
+              </div>
+              <button type="submit" class="btn btn-primary">Save Settings</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>
